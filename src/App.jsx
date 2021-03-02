@@ -14,12 +14,18 @@ export default class App extends Component{
     ]
   }
 
+  addTodo = (todoObj) => {      // 用于添加一个新的todo对象
+    const { todos } = this.state
+    const newTodos = [todoObj, ...todos]
+    this.setState({ todos: newTodos })
+  }
+
   render() {
     const { todos } = this.state
     return(
       <div className="todo-container">
         <div className="todo-wrap">
-          <Header/>
+          <Header addTodo={this.addTodo} />
           <List todos={todos} />
           <Footer/>
         </div>
