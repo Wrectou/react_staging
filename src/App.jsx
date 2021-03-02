@@ -37,6 +37,20 @@ export default class App extends Component{
     this.setState({ todos: newTodos })
   }
 
+  checkAllTodos = (done) => {     // 用于全选 / 反选
+    const { todos } = this.state
+    const newTodos = todos.map((todoObj) => { 
+      return {...todoObj, done}
+    })
+    this.setState({ todos: newTodos })    
+  }
+
+  clearAllDone = () => {    // 用于清除所有已完成的
+    const { todos } = this.state
+    const newTodos = todos.filter((todoObj) => !todoObj.done )
+    this.setState({ todos: newTodos })
+  }
+
   render() {
     const { todos } = this.state
     return(
@@ -44,7 +58,7 @@ export default class App extends Component{
         <div className="todo-wrap">
           <Header addTodo={this.addTodo} />
           <List updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} todos={todos} />
-          <Footer/>
+          <Footer checkAllTodos={this.checkAllTodos} clearAllDone={this.clearAllDone} todos={todos} />
         </div>
       </div>
     )
